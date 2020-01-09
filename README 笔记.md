@@ -8,14 +8,18 @@
     function remRefresh() {
         // 1. 获取屏幕的宽度
         let clientWidth = document.documentElement.clientWidth;
+        let clientWidth = document.documentElement.clientWidth;
 
         // 2. 将屏幕的宽度等分, 等分的目的： 降低单位rem值的大小，便于换算，提高精确度
+        let rem = clientWidth / 10;
         let rem = clientWidth / 10;
 
         // 3. 设置根节点字体的大小
         document.documentElement.style.fontSize = rem + 'px'
+        document.documentElement.style.fontSize = rem + 'px'
 
         // 4. 设置body字体大小
+        document.body.style.fontSize = '16px'
         document.body.style.fontSize = '16px'
       }
 
