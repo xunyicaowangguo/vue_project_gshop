@@ -5,7 +5,7 @@
       <span>首页</span>
     </div>
     <div @click="goPath('/search')" :class="{active: $route.path === '/search'}" class="guideItem">
-      <i class="iconfont iconsearch"></i>
+      <i class="iconfont iconsousuo"></i>
       <span>搜索</span>
     </div>
     <div @click="goPath('/order')" :class="{active: $route.path === '/order'}" class="guideItem">
@@ -31,7 +31,11 @@
           $router：路由器对象，包含路由跳转的方法 push()/replace()
           $route: 路由对象，包含当前路径下所有路由信息(path,params,meta,query)
         */
-        this.$router.push(path)
+       // this.$router.push(path)
+       path !== this.$route.path && this.$router.push(path)
+      //  if(path !== this.$route.path){
+      //    this.$router.push(path)
+      //  }
       }
     }
   }
@@ -49,6 +53,7 @@
     width 100%
     height 50px
     box-sizing border-box
+    background-color #fff
     .guideItem
       width 25%
       height 50px
