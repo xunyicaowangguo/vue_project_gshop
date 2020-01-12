@@ -8,6 +8,8 @@ import {
     SAVE_ADDRESS,
     SAVE_CATEGORY,
     SAVE_SHOPLIST,
+    SAVE_USERINFO,
+    SAVE_TOKEN,
 } from './mutations_types'
 
 export default {
@@ -27,5 +29,11 @@ export default {
     async getShopListAction({commit}){
         let result = await getShopList()
         !!(result.code === 0) && commit(SAVE_SHOPLIST,result.data)
+    },
+    async getUserInfoAction({commit},user){
+        commit(SAVE_TOKEN,user.token)
+        localStorage.setItem('token_key',user.token)
+        delete user.token
+        commit(SAVE_USERINFO,user)
     },
 }

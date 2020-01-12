@@ -19,3 +19,32 @@ export const getShopList = (latitude, longitude) => ajax({
         longitude
     }
 })
+
+/*  发送短信验证码 */
+export const sendCode = ({phone}) => ajax({
+    url:'/sendcode',
+    params:{
+        phone
+    }
+})
+
+/*  用户名密码登录 */
+export const loginWithPwd = ({username,pwd,captcha}) => ajax({
+    url:'/login_pwd',
+    method:'POST',
+    data:{
+        name:username,
+        pwd,
+        captcha
+    }
+})
+
+/*  手机验证码登录 */
+export const loginWithPhone = ({phone,code}) => ajax({
+    url:'/login_sms',
+    method:'POST',
+    data:{
+        phone,
+        code
+    }
+})

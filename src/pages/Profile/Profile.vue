@@ -12,13 +12,13 @@
         <div class="profile_image">
           <i class="iconfont icon-person_round_fill"></i>
         </div>
-        <div class="user-info">
-          <p class="user-info-top">登录/注册</p>
-          <p>
+        <div class="user-info" @click="toLogin">
+          <p class="user-info-top" v-if="!userInfo.phone">{{userInfo.name?userInfo.name:'登录/注册'}}</p>
+          <p v-if="!userInfo.name">
             <span class="user-icon">
               <i class="iconfont icon-shouji icon-mobile"></i>
             </span>
-            <span class="icon-mobile-number">暂无绑定手机号</span>
+            <span class="icon-mobile-number">{{userInfo.phone?userInfo.phone:'暂无绑定手机号'}}</span>
           </p>
         </div>
         <span class="arrow">
@@ -98,7 +98,22 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   export default {
+    methods:{
+      toLogin(){
+        //判断用户是否登录
+
+        // !this.userInfo._id && this.$router.replace('/login')
+        !!this.userInfo._id || this.$router.replace('/login')
+      }
+    },
+    computed:{
+      // ...mapState(['userInfo'])
+      ...mapState({
+        userInfo: state => state.userInfo
+      })
+    }
   }
 </script>
 
