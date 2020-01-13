@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 //引入移动端适配库
 import 'lib-flexible/flexible'
+//引入mint-ui
+import { Button } from 'mint-ui';
 
 
 //引入veeValidate
@@ -22,6 +24,9 @@ Vue.config.productionTip = false
 Vue.prototype.$API = API
 //全局注册组件
 Vue.component('GshopHeader',GshopHeader)
+//引入mint-ui的button
+Vue.component(Button.name, Button); 
+
 
 new Vue({
   render: h => h(App),

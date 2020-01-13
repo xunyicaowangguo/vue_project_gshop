@@ -4,6 +4,7 @@ import {
     SAVE_SHOPLIST,
     SAVE_USERINFO,
     SAVE_TOKEN,
+    LOGOUT,
 } from './mutations_types'
 
 export default {
@@ -21,5 +22,10 @@ export default {
     },
     [SAVE_TOKEN] (state,token){
         state.token = token
+    },
+    [LOGOUT] (state){
+        state.token = '',
+        state.userInfo = {},
+        localStorage.removeItem('token_key')
     },
 }
