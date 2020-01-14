@@ -4,6 +4,7 @@ import App from './App.vue'
 import 'lib-flexible/flexible'
 //引入mint-ui
 import { Button } from 'mint-ui';
+import './mock/mockServer'
 
 
 //引入veeValidate

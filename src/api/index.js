@@ -68,3 +68,8 @@ export const autoLogin = () => ajax({
         needToken: true,
     }
 })
+
+//商家数据接口
+export const getShopDatas = () => ajax({
+    url: '/getShopDatas'
+})

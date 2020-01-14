@@ -19,7 +19,14 @@
 <script>
   import ShopHeader from '../../components/ShopHeader/ShopHeader'
   export default {
-    components:{ShopHeader}
+    components:{ShopHeader},
+    async mounted(){
+      // let result = await this.$API.getShopDatas()
+      // console.log(result);
+      
+      this.$store.dispatch('getShopDatasAction')
+    },
+    
   }
 </script>
 
