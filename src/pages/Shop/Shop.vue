@@ -17,14 +17,51 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
+  import {SAVE_SHOPDATAS,SAVE_CARTSHOPS} from '../../store/mutations_types'
   import ShopHeader from '../../components/ShopHeader/ShopHeader'
   export default {
     components:{ShopHeader},
+    computed:{
+      ...mapState({
+        shopDatas: state => state.shop.shopDatas
+      })
+    },
     async mounted(){
       // let result = await this.$API.getShopDatas()
       // console.log(result);
       
-      this.$store.dispatch('getShopDatasAction')
+      //获取商家完整信息
+      // this.$store.dispatch('getShopDatasAction')
+
+      //解决vuex刷新页面数据丢失问题
+      //从sessionStorage读取数据
+      let shopDatas = JSON.parse(sessionStorage.getItem('shopDatas'))
+      if(shopDatas){
+        //1.将读取到的数据存入vuex中
+        this.$store.commit(SAVE_SHOPDATAS,shopDatas)
+        //计算最新的购物车数据,food.count>0
+        let cartShops = shopDatas.goods.reduce((pre,good)=>{
+          pre.push(...good.foods.filter(food=>food.count>0))
+          return pre
+        },[])
+        //cartShops存入vuex中S
+        this.$store.commit(SAVE_CARTSHOPS,cartShops)
+      }else{
+        //分发action，发送请求获取数据
+        this.$store.dispatch('getShopDatasAction')
+      }
+      //绑定unload事件，此事件在页面确定刷新但还没有真正刷新的时候，页面即将刷新之前执行
+      window.addEventListener('unload',() => {
+        //将最新的shopDatas存入sessionStorage
+        sessionStorage.setItem('shopDatas',JSON.stringify(this.shopDatas))
+      })
+    },
+    //页面刷新，组件会销毁，但来不及走beforeDestroy
+    //beforeDestroy是vue的生命周期函数，浏览器刷新没有beforeDestroy
+    beforeDestroy(){
+      //将最新的shopDatas存入sessionStorage
+      sessionStorage.setItem('shopDatas',JSON.stringify(this.shopDatas))
     },
     
   }

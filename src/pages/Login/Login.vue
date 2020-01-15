@@ -117,9 +117,8 @@
             }
           }else{//验证码登录
             result = await this.$API.loginWithPhone({phone,code})
-            console.log(result);
             if(result.code === 1){//验证码登录失败
-              alert('请输入正确的验证码-------')
+              alert('请输入正确的验证码！')
               //清空验证码
               this.code = ''
             }

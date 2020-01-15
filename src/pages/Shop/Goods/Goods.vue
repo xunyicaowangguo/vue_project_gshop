@@ -36,15 +36,20 @@
         </ul>
       </div>
     </div>
+    <ShopCart/>
   </div>
 </template>
 
 <script>
   import {mapState} from 'vuex'
   import CartControl from '../../../components/CartControl/CartControl'
+  import ShopCart from '../../../components/ShopCart/ShopCart'
   import BScroll from 'better-scroll'
   export default {
-    components:{CartControl},
+    components:{
+        CartControl,
+        ShopCart,
+    },
     data(){
         return{
             tops: [],
@@ -73,6 +78,10 @@
     },
     methods:{
         _initScroll(){
+          if(this.leftScroll || this.rightScroll){  //之前生成过BScroll的实例
+              this.leftScroll.refresh() //重新刷新当前的实例，重新计算content内容的高度/宽度
+              this.rightScroll.refresh()  //重新刷新当前的实例
+          }else{
             this.leftScroll = new BScroll('.leftContainer',{
                 scrollY: true,  //纵向滑动
                 click: true,
@@ -91,6 +100,7 @@
             this.rightScroll.on('scrollEnd',({x,y}) => {
                 this.scrollY = Math.abs(y)
             })
+          }
         },
         _initTops(){
             let lis = Array.from(this.$refs.rightUl.children)
