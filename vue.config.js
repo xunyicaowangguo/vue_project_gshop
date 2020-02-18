@@ -6,27 +6,38 @@ const postcss = px2rem({
 
 
 module.exports = {
-    runtimeCompiler: true,
-    lintOnSave: false, 
-    css: { // 添加postcss配置
-      loaderOptions: {
-        postcss: {
-          plugins: [
-            postcss
-          ]
+  runtimeCompiler: true,
+  lintOnSave: false,
+
+  css: { // 添加postcss配置
+    loaderOptions: {
+      postcss: {
+        plugins: [
+          postcss
+        ]
+      }
+    }
+  },
+
+  devServer:{
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
         }
       }
-    },
-    devServer:{
-      proxy: {
-        '/api': {
-          target: 'http://localhost:4000',
-          ws: true,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/api': ''
-          }
-        }
-      }
-    },
+    }
+  },
+
+  pluginOptions: {
+    i18n: {
+      locale: '(en)',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: false
+    }
+  }
 }
